@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+input {
+  padding: 10px 0 10px 12px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #606060;
+  outline: none;
+  width: 300px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: 50px auto;
+}
+
+.todo {
+  border: 1px solid #606060;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.todo__inputs-form {
+  display: flex;
+  justify-content: center;
+  max-width: 300px;
+  text-align: center;
+}
+
+.todo__inputs-form.edit {
+  padding-top: 15px;
+  border-top: 1px solid #606060;
+}
+
+.todo__inputs-form__inner {
+}
+
+.todo__inputs-form__input {
+}
+
+input[type="file"] {
+
+}
+
+.todo__list {
+  margin-top: 10px;
+  border-top: 1px solid #606060;
+}
+
+.todo__list-item {
+  border-bottom: 1px solid #606060;
+  padding: 15px 0;
+}
+
+.todo__list-item__description {
+
+}
+
+.todo__list-item__title {
+
+}
+
+.todo__list-item__date {
+
+}
+
+.todo__list-item__text.completed {
+  text-decoration: line-through;
+  opacity: .3;
+}
+
+.todo__list-item__status {
+  color: #ff4500;
+}
+
+.todo__list-item__status.completed {
+  color: #30e930;
+}
+
+.todo__list-remove__all {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 15px 0;
+  text-align: center;
+}
