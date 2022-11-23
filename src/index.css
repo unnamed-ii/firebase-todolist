@@ -13,7 +13,7 @@ code {
 }
 
 input {
-  padding: 10px 0 10px 12px;
+  padding: 10px 5px 10px 12px;
   margin: 5px 0;
   border-radius: 5px;
   border: 1px solid #606060;
@@ -66,6 +66,14 @@ input[type="file"] {
   padding: 15px 0;
 }
 
+.todo__list-item.completed {
+  opacity: .5;
+}
+
+.todo__list-item.completed .todo__list-item__status span {
+  color: green;
+}
+
 .todo__list-item__description {
 
 }
@@ -78,16 +86,15 @@ input[type="file"] {
 
 }
 
-.todo__list-item__text.completed {
-  text-decoration: line-through;
-  opacity: .3;
+.todo__list-item__date {
+
 }
 
-.todo__list-item__status {
+.todo__list-item__status span{
   color: #ff4500;
 }
 
-.todo__list-item__status.completed {
+.todo__list-item__status.completed span{
   color: #30e930;
 }
 
