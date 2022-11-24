@@ -1,0 +1,1 @@
+export const isDateEnding = date => new Date(date).getTime() < new Date().getTime()
