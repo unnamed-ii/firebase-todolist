@@ -14,6 +14,9 @@ function App() {
     return (
         <div className="wrapper">
             <div className="todo">
+                <div className="todo__title">
+                    TO-DO LIST
+                </div>
                 <AddForm
                     listOfTodo={listOfTodo}
                     setListOfTodo={setListOfTodo}
@@ -24,9 +27,9 @@ function App() {
                     setListOfTodo={setListOfTodo}
                 />
                 {!!listOfTodo.length &&
-                <div onClick={clearTodoList} className="todo__list-remove__all">
-                    Remove all todo
-                </div>
+                <button onClick={clearTodoList} className="styled-button">
+                    Remove all to-do
+                </button>
                 }
                 <EditForm
                     listOfTodo={listOfTodo}

@@ -1,0 +1,157 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  padding: 10px 5px 10px 12px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+  outline: none;
+  width: 300px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: 50px auto;
+}
+
+.styled-button {
+  border: none;
+  color: #fff;
+  background-color: #000;
+  border-radius: 5px;
+  padding: 12px 0;
+  cursor: pointer;
+  opacity: .9;
+  transition: all .3s;
+  width: 100%;
+  margin-top: 5px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.todo {
+  border: 1px solid #606060;
+  border-radius: 10px;
+  padding: 15px;
+
+  &__title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  &__inputs-form {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+    text-align: center;
+
+    .input-file-label {
+      padding-right: 15px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+      }
+    }
+
+    input[type="datetime-local"] {
+
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    &.edit {
+      padding-top: 15px;
+      border-top: 1px solid #606060;
+    }
+  }
+
+  &__list {
+    margin-top: 10px;
+
+    &-item {
+      border: 1px solid #d2d2d2;
+      border-radius: 10px;
+      padding: 10px;
+      position: relative;
+      width: 100%;
+
+      &__row {
+        word-wrap: break-word;
+
+        &.status {
+          div {
+            color: #ff4500;
+          }
+        }
+      }
+
+      &.completed {
+        opacity: .5;
+
+        .todo__list-item__row.status {
+          div {
+            color: green;
+          }
+        }
+      }
+
+      &__ellipsis {
+        border: none;
+        background-color: #fff;
+        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        text-align: right;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .buttons {
+          align-items: center;
+          display: none;
+          border: 1px solid #d2d2d2;
+          padding: 7px 10px;
+          border-radius: 7px;
+
+          button {
+            border: none;
+            height: 20px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all .3s;
+            text-decoration: underline;
+            border-radius: 5px;
+
+            &:hover {
+              background-color: #d2d2d2;
+            }
+          }
+        }
+
+        &:hover {
+          .buttons {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}

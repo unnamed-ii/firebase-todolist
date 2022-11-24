@@ -53,7 +53,7 @@ const EditForm = ({listOfTodo, editingInputId, setEditingInputId, setListOfTodo}
                            className="todo__inputs-form__input"
                            onChange={(e) => setEditingFile(e.target.files[0])}
                     />
-                    <button>Edit</button>
+                    <button className="styled-button">Edit</button>
                 </div>
             </form>}
         </>

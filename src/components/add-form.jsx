@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
 
 const AddForm = ({listOfTodo, setListOfTodo}) => {
     const [titleValue, setTitleValue] = useState('');
@@ -53,12 +54,16 @@ const AddForm = ({listOfTodo, setListOfTodo}) => {
                        value={dateValue}
                        className="todo__inputs-form__input"
                 />
-                <input type="file"
-                       className="todo__inputs-form__input"
-                       onChange={(e) => setFile(e.target.files[0])}
-                       ref={inputFileRef}
-                />
-                <button>Add new todo</button>
+                <label htmlFor="input-type-file" className="input-file-label">
+                    <FileIcon/>
+                    <input type="file"
+                           className="todo__inputs-form__input"
+                           onChange={(e) => setFile(e.target.files[0])}
+                           ref={inputFileRef}
+                           id="input-type-file"
+                    />
+                </label>
+                <button className="styled-button">Add new to-do</button>
             </div>
         </form>
     );

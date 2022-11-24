@@ -1,5 +1,8 @@
 import React from 'react';
 import {isDateEnding} from "../utils/isDateEnding";
+import {ReactComponent as EditIcon} from "../icons/pen-to-square-solid.svg";
+import {ReactComponent as RemoveIcon} from "../icons/xmark-solid.svg";
+import {ReactComponent as EllipsisIcon} from "../icons/ellipsis-solid.svg";
 
 const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
     const toggleTodoStatus = (id) => {
@@ -21,30 +24,40 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
             {listOfTodo.map(todo => (
                 <div className={"todo__list-item " + ((todo.isComplete || isDateEnding(todo.date)) && "completed")}
                      key={todo.id}>
-                    <div className="todo__list-item__title">
-                        Title: {todo.title}
+                    <div className="todo__list-item__row">
+                        Title:
+                        <div>{todo.title}</div>
                     </div>
-                    <div className={"todo__list-item__description"}>
-                        Description: {todo.description}
+                    <div className="todo__list-item__row">
+                        Description:
+                        <div>{todo.description}</div>
                     </div>
-                    <div className="todo__list-item__date">
-                        Date: {todo.date}
+                    <div className="todo__list-item__row">
+                        Date:
+                        <div>{todo.date}</div>
                     </div>
-                    <div className="todo__list-item__file">
-                        Files: {todo.file && todo.file.name}
+                    <div className="todo__list-item__row">
+                        Files:
+                        <div>{todo.file && todo.file.name}</div>
                     </div>
-                    <div className="todo__list-item__status">
-                        Status: <span>{(todo.isComplete || isDateEnding(todo.date)) ? 'Completed' : 'Not completed'}</span>
+                    <div className="todo__list-item__row status">
+                        Status:
+                        <div>{(todo.isComplete || isDateEnding(todo.date)) ? 'Completed' : 'Not completed'}</div>
                     </div>
-                    <button className="todo__list-item__toggle" onClick={() => toggleTodoStatus(todo.id)}>
-                        Toggle Status
-                    </button>
-                    <button className="todo__list-item__remove" onClick={() => removeTodo(todo.id)}>
-                        Remove Todo
-                    </button>
-                    <button className="todo__list-item__remove" onClick={() => setEditingInputId(todo.id)}>
-                        Edit Todo
-                    </button>
+                    <div className="todo__list-item__ellipsis">
+                        <EllipsisIcon />
+                        <div className="buttons">
+                            <button className="buttons__toggle" onClick={() => toggleTodoStatus(todo.id)}>
+                                Toggle Status
+                            </button>
+                            <button className="buttons__remove" onClick={() => removeTodo(todo.id)}>
+                                <RemoveIcon />
+                            </button>
+                            <button className="buttons__edit" onClick={() => setEditingInputId(todo.id)}>
+                                <EditIcon />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             ))}
         </div>
