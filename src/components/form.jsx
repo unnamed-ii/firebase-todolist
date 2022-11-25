@@ -20,6 +20,8 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
             id: Math.floor(Math.random() * 10000),
         }
 
+        console.log(todo)
+
         if (todo.description.trim() !== '' && todo.title.trim() !== '') {
             setListOfTodo(prev => [todo, ...prev])
         } else {
@@ -76,7 +78,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        className="todo__inputs-form__input"
                 />
                 <label htmlFor="input-type-file" className="input-file-label">
-                    <FileIcon/>
+                    <FileIcon/> : {file ? file.name : "Choose Files"}
                     <input type="file"
                            className="todo__inputs-form__input"
                            onChange={(e) => setFile(e.target.files[0])}

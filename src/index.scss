@@ -7,18 +7,39 @@
   font-family: Roboto sans-serif;
 }
 
+body {
+  background: linear-gradient(
+                  90deg,
+                  rgba(48, 16, 255, 1) 0%,
+                  rgba(100, 115, 255, 1) 100%
+  );
+  color: #fff;
+}
+
 input,
-textarea {
+textarea,
+.input-file-label {
   padding: 10px 5px 10px 12px;
   margin: 5px 0;
   border-radius: 5px;
-  border: 1px solid #d2d2d2;
+  border: 2px solid #5d0cff;
   outline: none;
-  width: 300px;
+  width: 100%;
+  background-color: transparent;
+  color: #fff;
+
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
 
   &::placeholder {
-    font-size: 16px
+    font-size: 16px;
+    color: #fff;
   }
+}
+
+svg {
+  fill: white;
 }
 
 .wrapper {
@@ -31,7 +52,7 @@ textarea {
 .styled-button {
   border: none;
   color: #fff;
-  background-color: #000;
+  background-color: #5d0cff;
   border-radius: 5px;
   padding: 12px 0;
   cursor: pointer;
@@ -39,6 +60,7 @@ textarea {
   transition: all .3s;
   width: 100%;
   margin-top: 5px;
+  font-size: 16px;
 
   &:hover {
     opacity: 1;
@@ -46,9 +68,9 @@ textarea {
 }
 
 .todo {
-  border: 1px solid #606060;
   border-radius: 10px;
   padding: 15px;
+  background: #161a2b;
 
   &__title {
     text-align: center;
@@ -59,16 +81,17 @@ textarea {
   &__inputs-form {
     display: flex;
     justify-content: center;
-    max-width: 300px;
+    max-width: 500px;
     text-align: center;
 
     .input-file-label {
-      padding-right: 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
 
       svg {
         width: 16px;
         height: 16px;
-        cursor: pointer;
       }
     }
 
@@ -83,43 +106,65 @@ textarea {
   }
 
   &__list {
-    margin-top: 10px;
+    margin: 10px 0 5px 0;
 
     &-item {
-      border: 1px solid #d2d2d2;
+      border: 2px solid #ff4500;;
       border-radius: 10px;
       padding: 10px;
       position: relative;
-      width: 100%;
+      width: 500px;
+      margin-top: 8px;
 
       &__row {
         word-wrap: break-word;
+        font-size: 18px;
+        font-weight: 700;
+        border-top: 2px solid #ff4500;
+        padding: 5px 0 5px 5px;
+        text-align: center;
+
+        &:first-child {
+          border-top: none;
+        }
+
+        div {
+          font-size: 16px;
+          font-weight: 400;
+        }
 
         &.status {
           div {
             color: #ff4500;
+            font-weight: 700;
+            font-size: 18px;
           }
         }
       }
 
       &.completed {
-        opacity: .5;
+        border: 2px solid #008000;;
 
-        .todo__list-item__row.status {
-          div {
-            color: green;
+        .todo__list-item__row {
+          opacity: .5;
+          border-color: green;
+
+          &.status {
+            div {
+              color: #008000;
+            }
           }
         }
       }
 
       &__ellipsis {
         border: none;
-        background-color: #fff;
         cursor: pointer;
         position: absolute;
-        right: 15px;
-        top: 15px;
+        right: 10px;
+        top: 10px;
         text-align: right;
+        z-index: 100;
 
         svg {
           width: 16px;
@@ -129,21 +174,23 @@ textarea {
         .buttons {
           align-items: center;
           display: none;
-          border: 1px solid #d2d2d2;
           padding: 7px 10px;
           border-radius: 7px;
+          background-color: #5d0cff;
 
           button {
+            color: #fff;
             border: none;
             height: 20px;
-            background-color: #fff;
             cursor: pointer;
             transition: all .3s;
             text-decoration: underline;
             border-radius: 5px;
+            background-color: transparent;
+            padding: 3px;
 
             &:hover {
-              background-color: #d2d2d2;
+              background-color: #7937e3;
             }
           }
         }

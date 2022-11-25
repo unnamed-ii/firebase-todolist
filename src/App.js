@@ -21,16 +21,15 @@ function App() {
                     setListOfTodo={setListOfTodo}
                     buttonText={'Add new To-Do'}
                 />
+                {!!listOfTodo.length &&
+                <button onClick={clearTodoList} className="styled-button">
+                    Remove all to-do
+                </button>}
                 <TodoList
                     listOfTodo={listOfTodo}
                     setEditingInputId={setEditingInputId}
                     setListOfTodo={setListOfTodo}
                 />
-                {!!listOfTodo.length &&
-                <button onClick={clearTodoList} className="styled-button">
-                    Remove all to-do
-                </button>
-                }
                 {!!editingInputId &&
                 <Form
                     listOfTodo={listOfTodo}

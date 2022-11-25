@@ -28,11 +28,11 @@ const Task = ({
                 <div>{description}</div>
             </div>
             <div className="todo__list-item__row">
-                Date:
-                <div>{date}</div>
+                {date ? 'Date:' : 'There is no final date'}
+                <div>{date.toLocaleString()}</div>
             </div>
             <div className="todo__list-item__row">
-                Files:
+                {file.name ? 'Files:' : 'There is no files were added'}
                 <div>{file && file.name}</div>
             </div>
             <div className="todo__list-item__row status">
