@@ -37,8 +37,7 @@ function App() {
                     editingInputId={editingInputId}
                     setEditingInputId={setEditingInputId}
                     buttonText={'Edit To-Do'}
-                />
-                }
+                />}
             </div>
         </div>
     );

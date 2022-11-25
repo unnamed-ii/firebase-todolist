@@ -57,7 +57,8 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     }
 
     return (
-        <form onSubmit={!!editingInputId ? editTodo : addTodo} className="todo__inputs-form">
+        <form onSubmit={!!editingInputId ? editTodo : addTodo}
+              className={"todo__inputs-form " + (!!editingInputId && "edit")}>
             <div className="todo__inputs-form__inner">
                 <input type="text"
                        onChange={(e) => setTitleValue(e.target.value)}

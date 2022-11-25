@@ -45,8 +45,8 @@ svg {
 .wrapper {
   display: flex;
   justify-content: center;
-  max-width: 500px;
-  margin: 50px auto;
+  margin: 0 auto;
+  padding-top: 50px;
 }
 
 .styled-button {
@@ -100,10 +100,34 @@ svg {
     }
 
     &.edit {
-      padding-top: 15px;
-      border-top: 1px solid #606060;
+      position: fixed;
+      padding-top: 225px;
+      left: 0;
+      top: 0;
+      max-width: none;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .5);
+      opacity: 1;
+      z-index: 100;
+      transform: scale(1.1);
+      transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+      & {
+        .todo__inputs-form__inner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border: 2px solid #5d0cff;
+          padding: 15px 20px 25px 20px;
+          background-color: #161a2b;
+          border-radius: 10px;
+        }
+      }
     }
   }
+
 
   &__list {
     margin: 10px 0 5px 0;
@@ -119,7 +143,7 @@ svg {
       &__row {
         word-wrap: break-word;
         font-size: 18px;
-        font-weight: 700;
+        font-weight: 600;
         border-top: 2px solid #ff4500;
         padding: 5px 0 5px 5px;
         text-align: center;
@@ -203,4 +227,5 @@ svg {
       }
     }
   }
+
 }
