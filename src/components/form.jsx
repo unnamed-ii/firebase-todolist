@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
 
-const AddForm = ({listOfTodo, setListOfTodo}) => {
+const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, buttonText}) => {
     const [titleValue, setTitleValue] = useState('');
     const [descriptionValue, setDescriptionValue] = useState('');
     const [dateValue, setDateValue] = useState('');
@@ -21,7 +21,7 @@ const AddForm = ({listOfTodo, setListOfTodo}) => {
         }
 
         if (todo.description.trim() !== '' && todo.title.trim() !== '') {
-            setListOfTodo([todo, ...listOfTodo])
+            setListOfTodo(prev => [todo, ...prev])
         } else {
             alert('You have not wrote "title" or "description"')
         }
@@ -33,9 +33,29 @@ const AddForm = ({listOfTodo, setListOfTodo}) => {
         inputFileRef.current.value = null;
     }
 
+    const editTodo = (e) => {
+        e.preventDefault();
+
+        let updatedTodoList = listOfTodo.map(todo => {
+            if (todo.id === editingInputId) {
+                todo.title = (!titleValue ? todo.title : titleValue);
+                todo.description = (!descriptionValue ? todo.description : descriptionValue);
+                todo.date = (!dateValue ? todo.date : dateValue);
+                todo.file = (!file ? todo.file : file);
+            }
+            return todo
+        })
+
+        setTitleValue('');
+        setDescriptionValue('');
+        setDateValue('');
+        setFile([]);
+        setListOfTodo(updatedTodoList);
+        setEditingInputId(null);
+    }
 
     return (
-        <form onSubmit={addTodo} className="todo__inputs-form">
+        <form onSubmit={!!editingInputId ? editTodo : addTodo} className="todo__inputs-form">
             <div className="todo__inputs-form__inner">
                 <input type="text"
                        onChange={(e) => setTitleValue(e.target.value)}
@@ -43,11 +63,12 @@ const AddForm = ({listOfTodo, setListOfTodo}) => {
                        className="todo__inputs-form__input"
                        placeholder="Enter title"
                 />
-                <input type="text"
+                <textarea
                        onChange={(e) => setDescriptionValue(e.target.value)}
                        value={descriptionValue}
                        className="todo__inputs-form__input"
                        placeholder="Enter description"
+                       rows={7}
                 />
                 <input type="datetime-local"
                        onChange={(e) => setDateValue(e.target.value)}
@@ -63,10 +84,10 @@ const AddForm = ({listOfTodo, setListOfTodo}) => {
                            id="input-type-file"
                     />
                 </label>
-                <button className="styled-button">Add new to-do</button>
+                <button className="styled-button">{buttonText}</button>
             </div>
         </form>
     );
 };
 
-export default AddForm;
+export default Form;

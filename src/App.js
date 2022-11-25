@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import AddForm from "./components/add-form";
-import EditForm from "./components/edit-form";
+import Form from "./components/form";
 import TodoList from "./components/todo-list";
 
 function App() {
@@ -17,9 +16,10 @@ function App() {
                 <div className="todo__title">
                     TO-DO LIST
                 </div>
-                <AddForm
+                <Form
                     listOfTodo={listOfTodo}
                     setListOfTodo={setListOfTodo}
+                    buttonText={'Add new To-Do'}
                 />
                 <TodoList
                     listOfTodo={listOfTodo}
@@ -31,12 +31,15 @@ function App() {
                     Remove all to-do
                 </button>
                 }
-                <EditForm
+                {!!editingInputId &&
+                <Form
                     listOfTodo={listOfTodo}
+                    setListOfTodo={setListOfTodo}
                     editingInputId={editingInputId}
                     setEditingInputId={setEditingInputId}
-                    setListOfTodo={setListOfTodo}
+                    buttonText={'Edit To-Do'}
                 />
+                }
             </div>
         </div>
     );
