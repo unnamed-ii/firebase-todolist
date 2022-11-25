@@ -2,9 +2,11 @@ import React, {useRef, useState} from 'react';
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
 
 const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, buttonText}) => {
-    const [titleValue, setTitleValue] = useState('');
-    const [descriptionValue, setDescriptionValue] = useState('');
-    const [dateValue, setDateValue] = useState('');
+    const editingInput = !!editingInputId ? listOfTodo.find(todo => todo.id === editingInputId) : null;
+
+    const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.title : '');
+    const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.description : '');
+    const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.date : '');
     const [file, setFile] = useState(null);
     const inputFileRef = useRef(null);
 
@@ -20,8 +22,6 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
             id: Math.floor(Math.random() * 10000),
         }
 
-        console.log(todo)
-
         if (todo.description.trim() !== '' && todo.title.trim() !== '') {
             setListOfTodo(prev => [todo, ...prev])
         } else {
@@ -31,7 +31,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setTitleValue('');
         setDescriptionValue('');
         setDateValue('');
-        setFile([]);
+        setFile({});
         inputFileRef.current.value = null;
     }
 
@@ -51,7 +51,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setTitleValue('');
         setDescriptionValue('');
         setDateValue('');
-        setFile([]);
+        setFile({});
         setListOfTodo(updatedTodoList);
         setEditingInputId(null);
     }
