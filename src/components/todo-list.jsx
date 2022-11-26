@@ -26,7 +26,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
                     title={todo.title}
                     description={todo.description}
                     date={todo.date}
-                    file={todo.file}
+                    files={todo.files}
                     isComplete={todo.isComplete}
                     toggleTodoStatus={toggleTodoStatus}
                     removeTodo={removeTodo}

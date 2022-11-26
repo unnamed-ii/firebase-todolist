@@ -7,7 +7,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.title : '');
     const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.description : '');
     const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.date : '');
-    const [file, setFile] = useState(null);
+    const [files, setFiles] = useState(null);
     const inputFileRef = useRef(null);
 
     const addTodo = (e) => {
@@ -16,7 +16,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         const todo = {
             title: titleValue,
             date: dateValue,
-            file: file,
+            files: files,
             isComplete: false,
             description: descriptionValue,
             id: Math.floor(Math.random() * 10000),
@@ -31,7 +31,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setTitleValue('');
         setDescriptionValue('');
         setDateValue('');
-        setFile({});
+        setFiles(null);
         inputFileRef.current.value = null;
     }
 
@@ -43,7 +43,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                 todo.title = (!titleValue ? todo.title : titleValue);
                 todo.description = (!descriptionValue ? todo.description : descriptionValue);
                 todo.date = (!dateValue ? todo.date : dateValue);
-                todo.file = (!file ? todo.file : file);
+                todo.file = (!files ? todo.file : files);
             }
             return todo
         })
@@ -51,7 +51,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setTitleValue('');
         setDescriptionValue('');
         setDateValue('');
-        setFile({});
+        setFiles(null);
         setListOfTodo(updatedTodoList);
         setEditingInputId(null);
     }
@@ -79,10 +79,10 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        className="todo__inputs-form__input"
                 />
                 <label htmlFor="input-type-file" className="input-file-label">
-                    <FileIcon/> : {file ? file.name : "Choose Files"}
+                    <FileIcon/> : {files ? files.name : "Choose Files"}
                     <input type="file"
                            className="todo__inputs-form__input"
-                           onChange={(e) => setFile(e.target.files[0])}
+                           onChange={(e) => setFiles(e.target.files[0])}
                            ref={inputFileRef}
                            id="input-type-file"
                     />

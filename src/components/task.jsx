@@ -9,7 +9,7 @@ const Task = ({
                   title,
                   description,
                   date,
-                  file,
+                  files,
                   isComplete,
                   toggleTodoStatus,
                   removeTodo,
@@ -32,8 +32,8 @@ const Task = ({
                 <div>{date.toLocaleString()}</div>
             </div>
             <div className="todo__list-item__row">
-                {file ? 'Files:' : 'There is no files were added'}
-                <div>{file && file.name}</div>
+                {files ? 'Files:' : 'There is no files were added'}
+                <div>{files.name}</div>
             </div>
             <div className="todo__list-item__row status">
                 Status:
