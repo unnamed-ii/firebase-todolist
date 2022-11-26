@@ -1,6 +1,16 @@
 import React, {useRef, useState} from 'react';
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
 
+/**
+ * Component, which is used to add and edit to-do
+ * @param {Array} listOfTodo - list of all to-do's
+ * @param {function} setListOfTodo - set state function for listOfTodo
+ * @param {number} [editingInputId] - input of editing to-do
+ * @param {function} [setEditingInputId] - set state function for editingInputId
+ * @param {string} buttonText - text of the button, which is possible in two way
+ * @returns {React.Component}
+ */
+
 const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, buttonText}) => {
     const editingInput = !!editingInputId ? listOfTodo.find(todo => todo.id === editingInputId) : null;
 
@@ -10,6 +20,9 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const [files, setFiles] = useState(null);
     const inputFileRef = useRef(null);
 
+    /**
+     * Function for adding to-do
+     */
     const addTodo = (e) => {
         e.preventDefault();
 
@@ -35,6 +48,9 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         inputFileRef.current.value = null;
     }
 
+    /**
+     * Function for editing to-do
+     */
     const editTodo = (e) => {
         e.preventDefault();
 

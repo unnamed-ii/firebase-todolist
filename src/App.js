@@ -2,10 +2,18 @@ import React, {useState} from "react";
 import Form from "./components/form";
 import TodoList from "./components/todo-list";
 
+/**
+ * Main component of the project
+ * @returns {React.Component}
+ */
+
 function App() {
     const [listOfTodo, setListOfTodo] = useState([]);
     const [editingInputId, setEditingInputId] = useState(null);
 
+    /**
+     * Function for removing all to-do's
+     */
     const clearTodoList = () => {
         setListOfTodo([])
     }

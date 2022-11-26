@@ -4,6 +4,20 @@ import {ReactComponent as EllipsisIcon} from "../icons/ellipsis-solid.svg";
 import {ReactComponent as RemoveIcon} from "../icons/xmark-solid.svg";
 import {ReactComponent as EditIcon} from "../icons/pen-to-square-solid.svg";
 
+/**
+ * Component of single to-do
+ * @param {number} id - id of to-do
+ * @param {string} title - title of to-do
+ * @param {string} description - description of to-do
+ * @param {string} date - final date to finish to-do
+ * @param files - files of to-do
+ * @param {boolean} isComplete - status of to-do
+ * @param {function} toggleTodoStatus - function to toggle status of to-do
+ * @param {function} removeTodo - function for deleting to-do
+ * @param {function} setEditingInputId - set state function for editingInputId
+ * @returns {React.Component}
+ */
+
 const Task = ({
                   id,
                   title,
@@ -15,6 +29,11 @@ const Task = ({
                   removeTodo,
                   setEditingInputId
               }) => {
+
+    /**
+     * Variable for checking status of to-do
+     * @type {boolean}
+     */
     const validatingStatus = isComplete || isDateEnding(date);
 
     return (
