@@ -52,7 +52,7 @@ const Task = ({
             </div>
             <div className="todo__list-item__row">
                 {files ? 'Files:' : 'There is no files were added'}
-                <div>{files.name}</div>
+                <div>{files ? files.name : ''}</div>
             </div>
             <div className="todo__list-item__row status">
                 Status:
