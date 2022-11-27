@@ -48,7 +48,7 @@ const Task = ({
             </div>
             <div className="todo__list-item__row">
                 {date ? 'Date:' : 'There is no final date'}
-                <div>{date.toLocaleString()}</div>
+                <div>{date}</div>
             </div>
             <div className="todo__list-item__row">
                 {files ? 'Files:' : 'There is no files were added'}

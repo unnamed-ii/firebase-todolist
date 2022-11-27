@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import * as dayjs from 'dayjs';
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
 
 /**
@@ -28,7 +29,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
 
         const todo = {
             title: titleValue,
-            date: dateValue,
+            date: dateValue ? dayjs(dateValue).format('HH:mm DD/MM/YYYY') : '',
             files: files,
             isComplete: false,
             description: descriptionValue,
