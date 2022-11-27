@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "./components/form";
 import TodoList from "./components/todo-list";
+import {collection, getDocs} from "firebase/firestore";
+import {database} from "./firebase";
 
 /**
  * Main component of the project
@@ -9,7 +11,20 @@ import TodoList from "./components/todo-list";
 
 function App() {
     const [listOfTodo, setListOfTodo] = useState([]);
-    const [editingInputId, setEditingInputId] = useState(null);
+    const [editingInputId, setEditingInputId] = useState('');
+    console.log(listOfTodo)
+    function getTodos(){
+        const todoListRef = collection(database, 'todos')
+        getDocs(todoListRef)
+            .then(response => {
+                const todoList = response.docs.map(doc => ({
+                    data: doc.data(),
+                    id: doc.id
+                }));
+                setListOfTodo(todoList)
+            })
+            .catch(error => console.log(error.message))
+    }
 
     /**
      * Function for removing all to-do's
@@ -17,6 +32,10 @@ function App() {
     const clearTodoList = () => {
         setListOfTodo([])
     }
+
+    useEffect(() => {
+        getTodos()
+    }, [])
 
     return (
         <div className="wrapper">
@@ -28,6 +47,7 @@ function App() {
                     listOfTodo={listOfTodo}
                     setListOfTodo={setListOfTodo}
                     buttonText={'Add new To-Do'}
+                    getTodos={getTodos}
                 />
                 {!!listOfTodo.length &&
                 <button onClick={clearTodoList} className="styled-button">

@@ -1,23 +1,26 @@
 import React, {useRef, useState} from 'react';
 import * as dayjs from 'dayjs';
+import {addDoc, updateDoc, collection, doc} from 'firebase/firestore';
+import {database} from "../firebase";
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
 
 /**
  * Component, which is used to add and edit to-do
  * @param {Array} listOfTodo - list of all to-do's
  * @param {function} setListOfTodo - set state function for listOfTodo
- * @param {number} [editingInputId] - input of editing to-do
+ * @param {string} [editingInputId] - input of editing to-do
  * @param {function} [setEditingInputId] - set state function for editingInputId
  * @param {string} buttonText - text of the button, which is possible in two way
+ * @param {function} getTodos - function for uploading to-do's from server
  * @returns {React.Component}
  */
 
-const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, buttonText}) => {
+const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, buttonText, getTodos}) => {
     const editingInput = !!editingInputId ? listOfTodo.find(todo => todo.id === editingInputId) : null;
 
-    const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.title : '');
-    const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.description : '');
-    const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.date : '');
+    const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.data.title : '');
+    const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.data.description : '');
+    const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.data.date : '');
     const [files, setFiles] = useState(null);
     const inputFileRef = useRef(null);
 
@@ -26,27 +29,38 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
      */
     const addTodo = (e) => {
         e.preventDefault();
-
         const todo = {
             title: titleValue,
-            date: dateValue ? dayjs(dateValue).format('HH:mm DD/MM/YYYY') : '',
-            files: files,
+            date: dateValue,
+            // files: files,
             isComplete: false,
             description: descriptionValue,
-            id: Math.floor(Math.random() * 10000),
         }
 
-        if (todo.description.trim() !== '' && todo.title.trim() !== '') {
-            setListOfTodo(prev => [todo, ...prev])
-        } else {
-            alert('You have not wrote "title" or "description"')
+        if (todo.title.trim() === '') {
+            alert('You have not wrote "title"')
         }
+
+        if (todo.description.trim() === '') {
+            alert('You have not wrote "description"')
+        }
+
+        const todoListRef = collection(database, 'todos')
+        addDoc(todoListRef, todo)
+            .then(response => {
+                console.log(response.id)
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+
 
         setTitleValue('');
         setDescriptionValue('');
         setDateValue('');
         setFiles(null);
         inputFileRef.current.value = null;
+        getTodos();
     }
 
     /**
@@ -55,15 +69,29 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const editTodo = (e) => {
         e.preventDefault();
 
-        let updatedTodoList = listOfTodo.map(todo => {
+        const updatedTodoList = listOfTodo.map(todo => {
             if (todo.id === editingInputId) {
-                todo.title = (!titleValue ? todo.title : titleValue);
-                todo.description = (!descriptionValue ? todo.description : descriptionValue);
-                todo.date = (!dateValue ? todo.date : dateValue);
-                todo.file = (!files ? todo.file : files);
+                todo.data.title = (!titleValue ? todo.data.title : titleValue);
+                todo.data.description = (!descriptionValue ? todo.data.description : descriptionValue);
+                todo.data.date = (!dateValue ? todo.data.date : dateValue);
+                // todo.data.file = (!files ? todo.data.file : files);
             }
             return todo
         })
+
+        const docRef = doc(database, 'todos', editingInputId)
+        updateDoc(docRef, {
+            title: editingInput.data.title,
+            description: editingInput.data.description,
+            isComplete: editingInput.data.isComplete,
+            date: editingInput.data.date
+        })
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
 
         setTitleValue('');
         setDescriptionValue('');
@@ -84,11 +112,11 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        placeholder="Enter title"
                 />
                 <textarea
-                       onChange={(e) => setDescriptionValue(e.target.value)}
-                       value={descriptionValue}
-                       className="todo__inputs-form__input"
-                       placeholder="Enter description"
-                       rows={7}
+                    onChange={(e) => setDescriptionValue(e.target.value)}
+                    value={descriptionValue}
+                    className="todo__inputs-form__input"
+                    placeholder="Enter description"
+                    rows={7}
                 />
                 <input type="datetime-local"
                        onChange={(e) => setDateValue(e.target.value)}

@@ -3,10 +3,11 @@ import {isDateEnding} from "../utils/isDateEnding";
 import {ReactComponent as EllipsisIcon} from "../icons/ellipsis-solid.svg";
 import {ReactComponent as RemoveIcon} from "../icons/xmark-solid.svg";
 import {ReactComponent as EditIcon} from "../icons/pen-to-square-solid.svg";
+import {dateConvert} from "../utils/dateConvertation";
 
 /**
  * Component of single to-do
- * @param {number} id - id of to-do
+ * @param {string} id - id of to-do
  * @param {string} title - title of to-do
  * @param {string} description - description of to-do
  * @param {string} date - final date to finish to-do
@@ -48,7 +49,7 @@ const Task = ({
             </div>
             <div className="todo__list-item__row">
                 {date ? 'Date:' : 'There is no final date'}
-                <div>{date}</div>
+                <div>{dateConvert(date)}</div>
             </div>
             <div className="todo__list-item__row">
                 {files ? 'Files:' : 'There is no files were added'}

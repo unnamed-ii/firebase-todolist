@@ -5,7 +5,7 @@ import Task from "./task";
  * Component for rendering full list of to-do's
  * @param {Array} listOfTodo - list of all to-do's
  * @param {function} setListOfTodo - set state function for listOfTodo
- * @param {number} editingInputId - input of editing to-do
+ * @param {string} editingInputId - input of editing to-do
  * @returns {React.Component}
  */
 
@@ -18,7 +18,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
     const toggleTodoStatus = (id) => {
         let updatedTodoList = listOfTodo.map(todo => {
             if (todo.id === id) {
-                todo.isComplete = !todo.isComplete
+                todo.data.isComplete = !todo.data.isComplete
             }
             return todo
         })
@@ -39,11 +39,11 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
                 <Task
                     key={todo.id}
                     id={todo.id}
-                    title={todo.title}
-                    description={todo.description}
-                    date={todo.date}
-                    files={todo.files}
-                    isComplete={todo.isComplete}
+                    title={todo.data.title}
+                    description={todo.data.description}
+                    date={todo.data.date}
+                    files={todo.data.files}
+                    isComplete={todo.data.isComplete}
                     toggleTodoStatus={toggleTodoStatus}
                     removeTodo={removeTodo}
                     setEditingInputId={setEditingInputId}
