@@ -26,13 +26,6 @@ function App() {
             .catch(error => console.log(error.message))
     }
 
-    /**
-     * Function for removing all to-do's
-     */
-    const clearTodoList = () => {
-        setListOfTodo([])
-    }
-
     useEffect(() => {
         getTodos()
     }, [])
@@ -49,10 +42,6 @@ function App() {
                     buttonText={'Add new To-Do'}
                     getTodos={getTodos}
                 />
-                {!!listOfTodo.length &&
-                <button onClick={clearTodoList} className="styled-button">
-                    Remove all to-do
-                </button>}
                 <TodoList
                     listOfTodo={listOfTodo}
                     setEditingInputId={setEditingInputId}
