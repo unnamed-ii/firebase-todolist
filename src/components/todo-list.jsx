@@ -8,6 +8,7 @@ import {database} from "../firebase";
  * @param {Array} listOfTodo - list of all to-do's
  * @param {function} setListOfTodo - set state function for listOfTodo
  * @param {string} editingInputId - input of editing to-do
+ * @param {function} getTodos - getting data from server
  * @returns {React.Component}
  */
 

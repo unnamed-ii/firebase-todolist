@@ -11,7 +11,7 @@ import {dateConvert} from "../utils/dateConvertation";
  * @param {string} title - title of to-do
  * @param {string} description - description of to-do
  * @param {string} date - final date to finish to-do
- * @param files - files of to-do
+ * @param {string} file - files of to-do
  * @param {boolean} isComplete - status of to-do
  * @param {function} toggleTodoStatus - function to toggle status of to-do
  * @param {function} removeTodo - function for deleting to-do

@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import {getStorage, ref, uploadBytes} from "firebase/storage";
-import * as dayjs from 'dayjs';
 import {addDoc, updateDoc, collection, doc} from 'firebase/firestore';
 import {database} from "../firebase";
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
