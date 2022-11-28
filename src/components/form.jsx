@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {getStorage, ref, uploadBytes} from "firebase/storage";
 import * as dayjs from 'dayjs';
 import {addDoc, updateDoc, collection, doc} from 'firebase/firestore';
 import {database} from "../firebase";
@@ -21,23 +22,26 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.data.title : '');
     const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.data.description : '');
     const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.data.date : '');
-    const [files, setFiles] = useState(null);
+    const [file, setFile] = useState(null);
     const inputFileRef = useRef(null);
 
     const handleFileOnChange = (e) => {
-        setFiles(prev => [...prev, e.target.files])
-        console.log(files)
+        setFile(e.target.files[0])
     }
 
     /**
      * Function for adding to-do
      */
-    const addTodo = (e) => {
+    const addTodo = async (e) => {
         e.preventDefault();
+
+        const storage = getStorage();
+        const storageRef = ref(storage, file.name);
+        const fileSnapshot = await uploadBytes(storageRef, file)
         const todo = {
             title: titleValue,
             date: dateValue,
-            // files: files,
+            file: fileSnapshot.metadata.fullPath,
             isComplete: false,
             description: descriptionValue,
         }
@@ -59,7 +63,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
             setTitleValue('');
             setDescriptionValue('');
             setDateValue('');
-            setFiles(null);
+            setFile(null);
             inputFileRef.current.value = null;
             getTodos();
         }
@@ -76,7 +80,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                 todo.data.title = (!titleValue ? todo.data.title : titleValue);
                 todo.data.description = (!descriptionValue ? todo.data.description : descriptionValue);
                 todo.data.date = (!dateValue ? todo.data.date : dateValue);
-                // todo.data.file = (!files.length ? todo.data.files : files);
+                // todo.data.file = (!file.length ? todo.data.file : file);
             }
             return todo
         })
@@ -87,7 +91,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
             description: editingInput.data.description,
             isComplete: editingInput.data.isComplete,
             date: editingInput.data.date,
-            // files: editingInput.files
+            // file: editingInput.file
         })
             .then(response => {
                 console.log(response)
@@ -99,7 +103,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setTitleValue('');
         setDescriptionValue('');
         setDateValue('');
-        setFiles(null);
+        setFile(null);
         setListOfTodo(updatedTodoList);
         setEditingInputId('');
     }
@@ -132,10 +136,10 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        className="todo__inputs-form__input"
                 />
                 <label htmlFor="input-type-file" className="input-file-label">
-                    <FileIcon/> : {files ? files.name : "Choose Files"}
+                    <FileIcon/> : {file ? file.name : "Choose Files"}
                     <input type="file"
                            className="todo__inputs-form__input"
-                           onChange={(e) => handleFileOnChange(e)}
+                           onChange={handleFileOnChange}
                            ref={inputFileRef}
                            id="input-type-file"
                     />

@@ -50,7 +50,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
                     title={todo.data.title}
                     description={todo.data.description}
                     date={todo.data.date}
-                    files={todo.data.files}
+                    file={todo.data.file}
                     isComplete={todo.data.isComplete}
                     toggleTodoStatus={toggleTodoStatus}
                     removeTodo={removeTodo}

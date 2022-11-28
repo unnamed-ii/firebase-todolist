@@ -24,7 +24,7 @@ const Task = ({
                   title,
                   description,
                   date,
-                  files,
+                  file,
                   isComplete,
                   toggleTodoStatus,
                   removeTodo,
@@ -52,8 +52,9 @@ const Task = ({
                 <div>{dateConvert(date)}</div>
             </div>
             <div className="todo__list-item__row">
-                {files ? 'Files:' : 'There is no files were added'}
-                <div>{files ? files.name : ''}</div>
+                {file ? 'File:' : 'There is no files were added'}
+                &nbsp;
+                {file ?? ''}
             </div>
             <div className="todo__list-item__row status">
                 Status:
