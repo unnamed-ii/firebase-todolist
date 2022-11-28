@@ -98,11 +98,16 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setDateValue('');
         setFiles(null);
         setListOfTodo(updatedTodoList);
-        setEditingInputId(null);
+        setEditingInputId('');
     }
 
     return (
         <form onSubmit={!!editingInputId ? editTodo : addTodo}
+              onMouseUp={(e) => {
+                  if (e.currentTarget === e.target) {
+                      setEditingInputId('');
+                  }
+              }}
               className={"todo__inputs-form " + (!!editingInputId && "edit")}>
             <div className="todo__inputs-form__inner">
                 <input type="text"

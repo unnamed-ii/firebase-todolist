@@ -57,6 +57,7 @@ function App() {
                     listOfTodo={listOfTodo}
                     setEditingInputId={setEditingInputId}
                     setListOfTodo={setListOfTodo}
+                    getTodos={getTodos}
                 />
                 {!!editingInputId &&
                 <Form

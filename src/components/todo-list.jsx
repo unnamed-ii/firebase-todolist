@@ -1,5 +1,7 @@
 import React from 'react';
 import Task from "./task";
+import {doc, deleteDoc} from 'firebase/firestore';
+import {database} from "../firebase";
 
 /**
  * Component for rendering full list of to-do's
@@ -9,7 +11,7 @@ import Task from "./task";
  * @returns {React.Component}
  */
 
-const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
+const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
 
     /**
      * Function for toggling status of to-do
@@ -30,6 +32,12 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId}) => {
      * @param {number} id - id of the task to be deleted
      */
     const removeTodo = (id) => {
+        const docRef = doc(database, 'todos', id);
+        deleteDoc(docRef)
+            .then(() => console.log('Todo was deleted'))
+            .catch(error => console.log(error.message))
+
+        getTodos();
         setListOfTodo(prev => prev.filter(todo => todo.id !== id));
     }
 
