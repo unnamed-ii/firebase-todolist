@@ -12,7 +12,7 @@ import {database} from "./firebase";
 function App() {
     const [listOfTodo, setListOfTodo] = useState([]);
     const [editingInputId, setEditingInputId] = useState('');
-    console.log(listOfTodo)
+
     function getTodos(){
         const todoListRef = collection(database, 'todos')
         getDocs(todoListRef)

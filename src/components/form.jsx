@@ -24,6 +24,11 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const [files, setFiles] = useState(null);
     const inputFileRef = useRef(null);
 
+    const handleFileOnChange = (e) => {
+        setFiles(prev => [...prev, e.target.files])
+        console.log(files)
+    }
+
     /**
      * Function for adding to-do
      */
@@ -38,29 +43,26 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         }
 
         if (todo.title.trim() === '') {
-            alert('You have not wrote "title"')
+            alert('You didn\'t wrote "title"')
+        } else if (todo.description.trim() === '') {
+            alert('You didn\'t wrote "description"')
+        } else {
+            const todoListRef = collection(database, 'todos')
+            addDoc(todoListRef, todo)
+                .then(response => {
+                    console.log(response.id)
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+
+            setTitleValue('');
+            setDescriptionValue('');
+            setDateValue('');
+            setFiles(null);
+            inputFileRef.current.value = null;
+            getTodos();
         }
-
-        if (todo.description.trim() === '') {
-            alert('You have not wrote "description"')
-        }
-
-        const todoListRef = collection(database, 'todos')
-        addDoc(todoListRef, todo)
-            .then(response => {
-                console.log(response.id)
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
-
-
-        setTitleValue('');
-        setDescriptionValue('');
-        setDateValue('');
-        setFiles(null);
-        inputFileRef.current.value = null;
-        getTodos();
     }
 
     /**
@@ -74,7 +76,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                 todo.data.title = (!titleValue ? todo.data.title : titleValue);
                 todo.data.description = (!descriptionValue ? todo.data.description : descriptionValue);
                 todo.data.date = (!dateValue ? todo.data.date : dateValue);
-                // todo.data.file = (!files ? todo.data.file : files);
+                // todo.data.file = (!files.length ? todo.data.files : files);
             }
             return todo
         })
@@ -84,7 +86,8 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
             title: editingInput.data.title,
             description: editingInput.data.description,
             isComplete: editingInput.data.isComplete,
-            date: editingInput.data.date
+            date: editingInput.data.date,
+            // files: editingInput.files
         })
             .then(response => {
                 console.log(response)
@@ -132,7 +135,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                     <FileIcon/> : {files ? files.name : "Choose Files"}
                     <input type="file"
                            className="todo__inputs-form__input"
-                           onChange={(e) => setFiles(e.target.files[0])}
+                           onChange={(e) => handleFileOnChange(e)}
                            ref={inputFileRef}
                            id="input-type-file"
                     />
