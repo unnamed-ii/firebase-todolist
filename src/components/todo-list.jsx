@@ -16,7 +16,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
 
     /**
      * Function for toggling status of to-do
-     * @param {number} id - id of the task whose status will be toggled
+     * @param {string} id - id of the task whose status will be toggled
      */
     const toggleTodoStatus = (id) => {
         let updatedTodoList = listOfTodo.map(todo => {
@@ -30,7 +30,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
 
     /**
      * Function for removing to-do
-     * @param {number} id - id of the task to be deleted
+     * @param {string} id - id of the task to be deleted
      */
     const removeTodo = (id) => {
         const docRef = doc(database, 'todos', id);
