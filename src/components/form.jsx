@@ -21,7 +21,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.data.title : '');
     const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.data.description : '');
     const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.data.date : '');
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState();
     const inputFileRef = useRef(null);
 
     const handleFileOnChange = (e) => {
@@ -34,13 +34,13 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const addTodo = async (e) => {
         e.preventDefault();
 
-        const storage = getStorage();
-        const storageRef = ref(storage, file.name);
-        const fileSnapshot = await uploadBytes(storageRef, file)
+        // const storage = getStorage();
+        // const storageRef = ref(storage, file.name);
+        // const fileSnapshot = await uploadBytes(storageRef, file)
         const todo = {
             title: titleValue,
             date: dateValue,
-            file: fileSnapshot.metadata.fullPath,
+            // file: fileSnapshot.metadata.fullPath,
             isComplete: false,
             description: descriptionValue,
         }

@@ -3,6 +3,7 @@ import Form from "./components/form";
 import TodoList from "./components/todo-list";
 import {collection, getDocs} from "firebase/firestore";
 import {database} from "./firebase";
+import Filters from "./components/filters";
 
 /**
  * Main component of the project
@@ -26,6 +27,13 @@ function App() {
             .catch(error => console.log(error.message))
     }
 
+    /**
+     * Function for removing all to-do's
+     */
+    const clearTodoList = () => {
+        setListOfTodo([])
+    }
+
     useEffect(() => {
         getTodos()
     }, [])
@@ -41,6 +49,14 @@ function App() {
                     setListOfTodo={setListOfTodo}
                     buttonText={'Add new To-Do'}
                     getTodos={getTodos}
+                />
+                {!!listOfTodo.length &&
+                <button onClick={clearTodoList} className="styled-button">
+                    Remove all to-do
+                </button>}
+                <Filters
+                    listOfTodo={listOfTodo}
+                    setListOfTodo={setListOfTodo}
                 />
                 <TodoList
                     listOfTodo={listOfTodo}

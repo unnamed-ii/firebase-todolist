@@ -38,6 +38,10 @@ textarea,
   }
 }
 
+textarea {
+  resize: none;
+}
+
 svg {
   fill: white;
 }
@@ -128,6 +132,24 @@ svg {
     }
   }
 
+  &__filters {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+
+      &.all {
+        background-color: #5d0cff;
+      }
+      &.completed {
+        background-color: #039be5;
+        margin: 5px 5px 0 5px;
+      }
+      &.not-completed {
+        background-color: #ff4500;
+      }
+    }
+  }
 
   &__list {
     margin: 10px 0 5px 0;
