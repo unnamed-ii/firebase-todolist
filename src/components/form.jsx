@@ -3,6 +3,7 @@ import {getStorage, ref, uploadBytes} from "firebase/storage";
 import {addDoc, updateDoc, collection, doc} from 'firebase/firestore';
 import {database} from "../firebase";
 import {ReactComponent as FileIcon} from "../icons/file-regular.svg";
+import {isDateEnding} from "../utils/isDateEnding";
 
 /**
  * Component, which is used to add and edit to-do
@@ -41,7 +42,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
             title: titleValue,
             date: dateValue,
             // file: fileSnapshot.metadata.fullPath,
-            isComplete: false,
+            isComplete: isDateEnding(dateValue),
             description: descriptionValue,
         }
 
