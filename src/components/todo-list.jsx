@@ -1,6 +1,6 @@
 import React from 'react';
 import Task from "./task";
-import {doc, deleteDoc} from 'firebase/firestore';
+import {doc, deleteDoc, updateDoc, collection} from 'firebase/firestore';
 import {database} from "../firebase";
 
 /**
@@ -16,16 +16,14 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
 
     /**
      * Function for toggling status of to-do
-     * @param {string} id - id of the task whose status will be toggled
+     * @param {Object} todo - data of todo
      */
-    const toggleTodoStatus = (id) => {
-        let updatedTodoList = listOfTodo.map(todo => {
-            if (todo.id === id) {
-                todo.data.isComplete = !todo.data.isComplete
-            }
-            return todo
+    const toggleTodoStatus = async (todo) => {
+        const todoRef = doc(database, 'todos', todo.id)
+        await updateDoc(todoRef, {
+            isComplete: !todo.isComplete
         })
-        setListOfTodo(updatedTodoList);
+        getTodos()
     }
 
     /**
@@ -46,6 +44,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
         <div className="todo__list">
             {listOfTodo.map(todo => (
                 <Task
+                    todo={todo}
                     key={todo.id}
                     id={todo.id}
                     title={todo.data.title}

@@ -16,6 +16,7 @@ import {dateConvert} from "../utils/dateConvertation";
  * @param {function} toggleTodoStatus - function to toggle status of to-do
  * @param {function} removeTodo - function for deleting to-do
  * @param {function} setEditingInputId - set state function for editingInputId
+ * @param {Object} todo - to-do
  * @returns {React.Component}
  */
 
@@ -28,7 +29,8 @@ const Task = ({
                   isComplete,
                   toggleTodoStatus,
                   removeTodo,
-                  setEditingInputId
+                  setEditingInputId,
+                  todo
               }) => {
 
     /**
@@ -63,7 +65,7 @@ const Task = ({
             <div className="todo__list-item__ellipsis">
                 <EllipsisIcon/>
                 <div className="buttons">
-                    <button className="buttons__toggle" onClick={() => toggleTodoStatus(id)}>
+                    <button className="buttons__toggle" onClick={() => toggleTodoStatus(todo)}>
                         Toggle Status
                     </button>
                     <button className="buttons__remove" onClick={() => removeTodo(id)}>
