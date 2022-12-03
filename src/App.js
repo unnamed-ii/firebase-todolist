@@ -55,8 +55,8 @@ function App() {
                     Remove all to-do
                 </button>}
                 <Filters
-                    listOfTodo={listOfTodo}
                     setListOfTodo={setListOfTodo}
+                    getTodos={getTodos}
                 />
                 <TodoList
                     listOfTodo={listOfTodo}
