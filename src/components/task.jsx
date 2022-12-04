@@ -3,6 +3,8 @@ import {isDateEnding} from "../utils/isDateEnding";
 import {ReactComponent as EllipsisIcon} from "../icons/ellipsis-solid.svg";
 import {ReactComponent as RemoveIcon} from "../icons/xmark-solid.svg";
 import {ReactComponent as EditIcon} from "../icons/pen-to-square-solid.svg";
+import {ReactComponent as RegularMarkIcon} from "../icons/circle-check-regular.svg";
+import {ReactComponent as SolidMarkIcon} from "../icons/circle-check-solid.svg";
 import {dateConvert} from "../utils/dateConvertation";
 
 /**
@@ -66,7 +68,11 @@ const Task = ({
                 <EllipsisIcon/>
                 <div className="buttons">
                     <button className="buttons__toggle" onClick={() => toggleTodoStatus(todo)}>
-                        Toggle Status
+                        {isComplete ?
+                            <SolidMarkIcon/>
+                            :
+                            <RegularMarkIcon/>
+                        }
                     </button>
                     <button className="buttons__remove" onClick={() => removeTodo(id)}>
                         <RemoveIcon/>
