@@ -21,7 +21,7 @@ const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
     const toggleTodoStatus = async (todo) => {
         const todoRef = doc(database, 'todos', todo.id)
         await updateDoc(todoRef, {
-            isComplete: !todo.isComplete
+            isComplete: !todo.data.isComplete
         })
         getTodos()
     }
