@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Form from "./components/form";
 import TodoList from "./components/todo-list";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
 import {database} from "./firebase";
 import Filters from "./components/filters";
 
@@ -14,7 +14,7 @@ function App() {
     const [listOfTodo, setListOfTodo] = useState([]);
     const [editingInputId, setEditingInputId] = useState('');
 
-    function getTodos(){
+    function getTodos() {
         const todoListRef = collection(database, 'todos')
         getDocs(todoListRef)
             .then(response => {
@@ -30,8 +30,12 @@ function App() {
     /**
      * Function for removing all to-do's
      */
-    const clearTodoList = () => {
-        setListOfTodo([])
+    const clearTodoList = async () => {
+        for (let i = 0; i < listOfTodo.length; i++) {
+            const docRef = doc(database, 'todos', listOfTodo[i].id);
+            await deleteDoc(docRef)
+        }
+        getTodos();
     }
 
     useEffect(() => {
