@@ -58,11 +58,10 @@ function App() {
                 <button onClick={clearTodoList} className="styled-button">
                     Remove all to-do
                 </button>}
-                {!!listOfTodo.length &&
                 <Filters
                     setListOfTodo={setListOfTodo}
                     getTodos={getTodos}
-                />}
+                />
                 <TodoList
                     listOfTodo={listOfTodo}
                     setEditingInputId={setEditingInputId}
@@ -76,6 +75,7 @@ function App() {
                     editingInputId={editingInputId}
                     setEditingInputId={setEditingInputId}
                     buttonText={'Edit To-Do'}
+                    getTodos={getTodos}
                 />}
             </div>
         </div>

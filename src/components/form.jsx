@@ -22,7 +22,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.data.title : '');
     const [descriptionValue, setDescriptionValue] = useState(!!editingInputId ? editingInput.data.description : '');
     const [dateValue, setDateValue] = useState(!!editingInputId ? editingInput.data.date : '');
-    const [file, setFile] = useState();
+    const [file, setFile] = useState(null);
     const inputFileRef = useRef(null);
 
     const handleFileOnChange = (e) => {
@@ -35,13 +35,19 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const addTodo = async (e) => {
         e.preventDefault();
 
-        const storage = getStorage();
-        const storageRef = ref(storage, file.name);
-        const fileSnapshot = await uploadBytes(storageRef, file)
+        let storage;
+        let storageRef;
+        let fileSnapshot;
+
+        if (file) {
+            storage = getStorage();
+            storageRef = ref(storage, file.name);
+            fileSnapshot = await uploadBytes(storageRef, file);
+        }
         const todo = {
             title: titleValue,
             date: dateValue,
-            file: fileSnapshot.metadata.fullPath,
+            file: file ? fileSnapshot.metadata.fullPath : null,
             isComplete: isDateEnding(dateValue),
             description: descriptionValue,
         }
@@ -72,26 +78,17 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     /**
      * Function for editing to-do
      */
-    const editTodo = (e) => {
+    const editTodo = async (e) => {
         e.preventDefault();
 
-        const updatedTodoList = listOfTodo.map(todo => {
-            if (todo.id === editingInputId) {
-                todo.data.title = (!titleValue ? todo.data.title : titleValue);
-                todo.data.description = (!descriptionValue ? todo.data.description : descriptionValue);
-                todo.data.date = (!dateValue ? todo.data.date : dateValue);
-                // todo.data.file = (!file.length ? todo.data.file : file);
-            }
-            return todo
-        })
+        const updatingTodo = listOfTodo.find(todo => todo.id === editingInputId)
 
         const docRef = doc(database, 'todos', editingInputId)
         updateDoc(docRef, {
-            title: editingInput.data.title,
-            description: editingInput.data.description,
-            isComplete: editingInput.data.isComplete,
-            date: editingInput.data.date,
-            // file: editingInput.file
+            title: (titleValue ? titleValue : updatingTodo.data.title),
+            description: (descriptionValue ? descriptionValue : updatingTodo.data.description),
+            isComplete: (dateValue ? dateValue : updatingTodo.data.date),
+            date: (dateValue ? dateValue : updatingTodo.data.date)
         })
             .then(response => {
                 console.log(response)
@@ -104,8 +101,8 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
         setDescriptionValue('');
         setDateValue('');
         setFile(null);
-        setListOfTodo(updatedTodoList);
         setEditingInputId('');
+        getTodos();
     }
 
     return (
@@ -121,13 +118,13 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        onChange={(e) => setTitleValue(e.target.value)}
                        value={titleValue}
                        className="todo__inputs-form__input"
-                       placeholder="Enter title"
+                       placeholder="LYAGUSH'KA"
                 />
                 <textarea
                     onChange={(e) => setDescriptionValue(e.target.value)}
                     value={descriptionValue}
                     className="todo__inputs-form__input"
-                    placeholder="Enter description"
+                    placeholder="LYAGUSH'KA"
                     rows={7}
                 />
                 <input type="datetime-local"
