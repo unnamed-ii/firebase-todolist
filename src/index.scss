@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;700&display=swap');
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Roboto sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -74,12 +76,13 @@ svg {
 .todo {
   border-radius: 10px;
   padding: 15px;
+  margin: 0 15px;
   background: #161a2b;
 
   &__title {
     text-align: center;
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   &__inputs-form {
@@ -157,9 +160,9 @@ svg {
     &-item {
       border: 2px solid #ff4500;;
       border-radius: 10px;
-      padding: 10px;
+      padding: 5px;
       position: relative;
-      width: 500px;
+      max-width: 500px;
       margin-top: 8px;
 
       &__row {

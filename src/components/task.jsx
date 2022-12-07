@@ -52,7 +52,7 @@ const Task = ({
                 <div>{description}</div>
             </div>
             <div className="todo__list-item__row">
-                {date ? 'Date:' : 'There is no final date'}
+                {date ? 'Final Date:' : 'There is no final date'}
                 <div>{dateConvert(date)}</div>
             </div>
             <div className="todo__list-item__row">
