@@ -118,13 +118,13 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        onChange={(e) => setTitleValue(e.target.value)}
                        value={titleValue}
                        className="todo__inputs-form__input"
-                       placeholder="LYAGUSH'KA"
+                       placeholder="Enter title"
                 />
                 <textarea
                     onChange={(e) => setDescriptionValue(e.target.value)}
                     value={descriptionValue}
                     className="todo__inputs-form__input"
-                    placeholder="LYAGUSH'KA"
+                    placeholder="Enter description"
                     rows={7}
                 />
                 <input type="datetime-local"
