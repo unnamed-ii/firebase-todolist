@@ -35,13 +35,13 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
     const addTodo = async (e) => {
         e.preventDefault();
 
-        // const storage = getStorage();
-        // const storageRef = ref(storage, file.name);
-        // const fileSnapshot = await uploadBytes(storageRef, file)
+        const storage = getStorage();
+        const storageRef = ref(storage, file.name);
+        const fileSnapshot = await uploadBytes(storageRef, file)
         const todo = {
             title: titleValue,
             date: dateValue,
-            // file: fileSnapshot.metadata.fullPath,
+            file: fileSnapshot.metadata.fullPath,
             isComplete: isDateEnding(dateValue),
             description: descriptionValue,
         }
@@ -136,7 +136,7 @@ const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, but
                        className="todo__inputs-form__input"
                 />
                 <label htmlFor="input-type-file" className="input-file-label">
-                    <FileIcon/> : {file ? file.name : "Choose Files"}
+                    <FileIcon/> : {file ? file.name : "Choose File"}
                     <input type="file"
                            className="todo__inputs-form__input"
                            onChange={handleFileOnChange}
