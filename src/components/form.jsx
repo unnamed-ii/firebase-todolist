@@ -16,7 +16,7 @@ import {isDateEnding} from "../utils/isDateEnding";
  * @returns {React.Component}
  */
 
-const Form = ({listOfTodo, setListOfTodo, editingInputId, setEditingInputId, buttonText, getTodos}) => {
+const Form = ({listOfTodo, editingInputId, setEditingInputId, buttonText, getTodos}) => {
     const editingInput = !!editingInputId ? listOfTodo.find(todo => todo.id === editingInputId) : null;
 
     const [titleValue, setTitleValue] = useState(!!editingInputId ? editingInput.data.title : '');
