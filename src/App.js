@@ -38,6 +38,16 @@ function App() {
         getTodos();
     }
 
+    const removeCompletedTasks = async () => {
+        for (let i = 0; i < listOfTodo.length; i++) {
+            if (listOfTodo[i].data.isComplete) {
+                const docRef = doc(database, 'todos', listOfTodo[i].id);
+                await deleteDoc(docRef);
+            }
+        }
+        getTodos();
+    }
+
     useEffect(() => {
         getTodos()
     }, [])
@@ -55,12 +65,18 @@ function App() {
                     getTodos={getTodos}
                 />
                 {!!listOfTodo.length &&
-                <button onClick={clearTodoList} className="styled-button">
-                    Remove all to-do
-                </button>}
+                <>
+                    <button onClick={clearTodoList} className="styled-button">
+                        Remove all to-do
+                    </button>
+                    <button onClick={removeCompletedTasks} className="styled-button">
+                        Clear completed
+                    </button>
+                </>}
                 <Filters
                     setListOfTodo={setListOfTodo}
                     getTodos={getTodos}
+                    listOfTodo={listOfTodo}
                 />
                 <TodoList
                     listOfTodo={listOfTodo}

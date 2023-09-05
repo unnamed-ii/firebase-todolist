@@ -1,5 +1,5 @@
 import React from 'react';
-import {collection, getDocs} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDocs} from "firebase/firestore";
 import {database} from "../firebase";
 
 const Filters = ({setListOfTodo, getTodos}) => {

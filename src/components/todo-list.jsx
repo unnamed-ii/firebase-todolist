@@ -13,7 +13,6 @@ import {database} from "../firebase";
  */
 
 const TodoList = ({listOfTodo, setListOfTodo, setEditingInputId, getTodos}) => {
-
     /**
      * Function for toggling status of to-do
      * @param {Object} todo - data of todo
