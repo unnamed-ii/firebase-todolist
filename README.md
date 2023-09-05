@@ -13,4 +13,4 @@ Toggling status of to-do,\
 
 ### `Stack:`
 
-HTML, SCSS, REACT, jsDoc, dayJS, fireabse hosting and database
+HTML, SCSS, REACT, jsDoc, dayJS, firebase hosting and database
